@@ -12,3 +12,17 @@ C:\Users\VINICIUS_ROCHA\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\Ci
 C:\Users\VINICIUS_ROCHA\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.RazorTargetAssemblyInfo.cache
 C:\Users\VINICIUS_ROCHA\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.dll
 C:\Users\VINICIUS_ROCHA\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.pdb
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.1\CityInfo.API.deps.json
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.1\CityInfo.API.runtimeconfig.json
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.1\CityInfo.API.runtimeconfig.dev.json
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.1\CityInfo.API.dll
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.1\CityInfo.API.pdb
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.csprojAssemblyReference.cache
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.csproj.CoreCompileInputs.cache
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.RazorAssemblyInfo.cache
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.RazorAssemblyInfo.cs
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.AssemblyInfoInputs.cache
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.AssemblyInfo.cs
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.RazorTargetAssemblyInfo.cache
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.dll
+C:\Users\16280281\Desktop\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.1\CityInfo.API.pdb
