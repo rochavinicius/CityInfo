@@ -1,4 +1,5 @@
-﻿using CityInfo.API.Models;
+﻿using CityInfo.API.Entities;
+using CityInfo.API.Models;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -15,24 +16,29 @@ namespace CityInfo.API.Controllers
     {
         private NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private IMailService _mailService;
+        private ICityInfoRepository _repository;
 
-        public PointsOfInterestController(IMailService mailService)
+        public PointsOfInterestController(IMailService mailService, ICityInfoRepository repository)
         {
             _mailService = mailService;
+            _repository = repository;
         }
 
-        [HttpGet("{cityIf}/pointsofinterest")]
+        [HttpGet("{cityId}/pointsofinterest")]
         public IActionResult GetPointsOfInterest(int cityId)
         {
             try
             {
-                var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-                if (city == null)
+                if (!_repository.CityExists(cityId))
                 {
                     return NotFound();
                 }
 
-                return Ok(city.PointsOfinterest);
+                var pointsOfInterest = _repository.GetPointsOfInterestForCity(cityId);
+
+                var pointsOfInterestResult = AutoMapper.Mapper.Map<IEnumerable<PointOfInterestDTO>>(pointsOfInterest);
+
+                return Ok(pointsOfInterestResult);
             }
             catch(Exception ex)
             {
@@ -44,19 +50,21 @@ namespace CityInfo.API.Controllers
         [HttpGet("{cityId}/pointsofinterest/{id}", Name = "GetPointOfInterest")]
         public IActionResult GetPointsOfInterest(int cityId, int id)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
+            if (!_repository.CityExists(cityId))
             {
                 return NotFound();
             }
 
-            var pointOfInterest = city.PointsOfinterest.FirstOrDefault(p => p.Id == id);
+            var pointOfInterest = _repository.GetPointOfInterestForCity(cityId);
+
             if (pointOfInterest == null)
             {
                 return NotFound();
             }
 
-            return Ok(pointOfInterest);
+            var pointOfInterestResult = AutoMapper.Mapper.Map<PointOfInterestDTO>(pointOfInterest);
+
+            return Ok(pointOfInterestResult);
         }
 
         [HttpPost("{cityId}/pointsofinterest")]
@@ -78,25 +86,25 @@ namespace CityInfo.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-
-            if (city == null)
+            if (!_repository.CityExists(cityId))
             {
                 return NotFound();
             }
 
             var maxPointOfInterestId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfinterest).Max(p => p.Id);
 
-            var finalPointOfInterest = new PointOfInterestDTO()
+            var finalPointOfInterest = AutoMapper.Mapper.Map<PointOfInterest>(pointOfInterest);
+
+            _repository.AddPointOfInterestForCity(cityId, finalPointOfInterest);
+
+            if (!_repository.Save())
             {
-                Id = ++maxPointOfInterestId,
-                Name = pointOfInterest.Name,
-                Description = pointOfInterest.Description
-            };
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
 
-            city.PointsOfinterest.Add(finalPointOfInterest);
+            var createdPointOfInterest = AutoMapper.Mapper.Map<PointOfInterestDTO>(finalPointOfInterest);
 
-            return CreatedAtRoute("GetPointOfInterest", new { cityId = cityId, id = finalPointOfInterest.Id }, finalPointOfInterest);
+            return CreatedAtRoute("GetPointOfInterest", new { cityId = cityId, id = createdPointOfInterest.Id }, createdPointOfInterest);
         }
 
         [HttpPut("{cityId}/pointsofinterest/{id}")]

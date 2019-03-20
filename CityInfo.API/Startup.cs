@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CityInfo.API.Entities;
+using CityInfo.API.Models;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +64,14 @@ namespace CityInfo.API
             ctx.EnsureSeedDataForContext();
 
             app.UseStatusCodePages();
+
+            AutoMapper.Mapper.Initialize(cfg => 
+            {
+                cfg.CreateMap<City, CityDTO>();
+                cfg.CreateMap<City, CityWithoutPointsOfInterest>();
+                cfg.CreateMap<PointOfInterestForCreationDTO, PointOfInterest>();
+                cfg.CreateMap<PointOfInterestDTO, PointOfInterest>();
+            });
 
             app.UseMvc();
 
