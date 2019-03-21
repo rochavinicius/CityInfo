@@ -27,6 +27,11 @@ namespace CityInfo.API.Services
             return _context.Cities.Any(c => c.Id == cityId);
         }
 
+        public void DeletePointOfInterest(PointOfInterest pointOfInterest)
+        {
+            _context.PointsOfInterest.Remove(pointOfInterest);
+        }
+
         public IEnumerable<City> GetCities()
         {
             return _context.Cities.OrderBy(c => c.Name).ToList();
@@ -45,11 +50,6 @@ namespace CityInfo.API.Services
         public PointOfInterest GetPointOfInterestForCity(int cityId, int pointOfInterestId)
         {
             return _context.PointsOfInterest.Where(p => p.CityId == cityId && p.Id == pointOfInterestId).FirstOrDefault();
-        }
-
-        public PointOfInterest GetPointOfInterestForCity(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<PointOfInterest> GetPointsOfInterestForCity(int cityId)
